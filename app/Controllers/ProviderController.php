@@ -4,11 +4,11 @@ use app\Core\Controller;
 
 class ProviderController extends Controller
 {
-    public function index($message = null)
+    public function index()
     {
         $providerModel = $this->model('Provider');
         $provider = $providerModel::index();
-        $this->view('provider/index', ['provider' => $provider, 'message' => $message]);
+        $this->view('provider/index', ['provider' => $provider]);
     }
 
     public function create()
