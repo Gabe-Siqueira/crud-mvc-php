@@ -11,12 +11,13 @@
     <header>
       <div class="navbar navbar-dark bg-dark shadow-sm">
         <div class="container d-flex justify-content-between">
-            <a href="#" class="navbar-brand d-flex align-items-center">
+            <a href="http://localhost:8080/home/index" class="navbar-brand d-flex align-items-center">
                 <strong>Sistema Fornecedor e Produto</strong>
             </a>
             <nav class="nav nav-masthead justify-content-center">
-                <a class="nav-link text-white" href="provider/index">Fornecedor</a>
-                <a class="nav-link text-white" href="#">Produto</a>
+              <a class="nav-link text-white" href="http://localhost:8080/home/index">Home</a>
+              <a class="nav-link text-white" href="http://localhost:8080/provider/index">Fornecedor</a>
+              <a class="nav-link text-white" href="http://localhost:8080/product/index">Produto</a>
             </nav>
         </div>
       </div>
