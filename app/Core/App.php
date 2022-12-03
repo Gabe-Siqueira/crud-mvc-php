@@ -38,8 +38,8 @@ class App
     private function getController($url)
     {
         if (!empty($url[0]) && isset($url[0])) {
-            if (file_exists('../app/Controllers/' . ucfirst($url[0])  . '.php')) {
-                $this->controller = ucfirst($url[0]);
+            if (file_exists('../app/Controllers/' . ucfirst($url[0])  . 'Controller.php')) {
+                $this->controller = ucfirst($url[0]).'Controller';
             }else{
                 $this->page404 = true;
             }
