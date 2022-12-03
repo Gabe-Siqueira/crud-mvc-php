@@ -6,16 +6,12 @@ use PDO;
 
 class DataBase extends PDO
 {
-    private $DB_HOST = '127.0.0.1';
-    private $DB_DATABASE = 'crud_mvc_php';
-    private $DB_USER = 'gabriel';
-    private $DB_PASSWORD = 'Lemafehu1@#';
 
     private $conn;
 
     public function __construct()
     {
-        $this->conn = new PDO("mysql: host=$this->DB_HOST; dbname=$this->DB_DATABASE;, '$this->DB_USER', '$this->DB_PASSWORD'");
+        $this->conn = new PDO('mysql: host=localhost; dbname=crud_mvc_php;', 'gabriel', 'Lemafehu1@#');
     }
 
     /**
