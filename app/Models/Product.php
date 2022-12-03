@@ -18,7 +18,7 @@ class Product
         try {
             $conn = new Database();
 
-            $result = $conn->executeQuery('SELECT * FROM product');
+            $result = $conn->executeQuery('SELECT * FROM product;');
 
             return $result->fetchAll(PDO::FETCH_ASSOC);
 
@@ -62,27 +62,26 @@ class Product
     /**
     * Store a newly created resource in storage.
     *
-    * @param array    $dados 
+    * @param string    $name 
     *
     * @return array
     */
-    public static function store($dados)
+    public static function store($name)
     {
         try {
-            $name = $dados['name'];
-			$date_register = $dados['date_register'];
+            // $name = $dados['name'];
+			// $date_register = $dados['date_register'];
 
-            if (empty($name) || empty($date_register)) {
-				throw new Exception("Fill in all fields");
+            // if (empty($name) || empty($date_register)) {
+			// 	throw new Exception("Fill in all fields");
 
-				return false;
-			}
+			// 	return false;
+			// }
 
 			$conn = new Database();
 
-            $result = $conn->executeQuery('INSERT INTO product (`name`, date_register) VALUES (:name, :date_register)', array(
-                ':name' => $name,
-                ':date_register' => $date_register,
+            $result = $conn->executeQuery('INSERT INTO product (`name`, date_register) VALUES (:name, NOW())', array(
+                ':name' => $name
             ));
 
             return $result;
@@ -103,28 +102,27 @@ class Product
     /**
     * Update the specified resource in storage.
     *
-    * @param array      $dados
+    * @param string     $name
     * @param int        $id 
     *
     * @return array
     */
-    public static function update($dados, $id)
+    public static function update($name, $id)
     {
         try {
-            $name = $dados['name'];
-			$date_register = $dados['date_register'];
+            // $name = $dados['name'];
+			// $date_register = $dados['date_register'];
 
-            if (empty($id) || empty($name) || empty($date_register)) {
-				throw new Exception("Fill in all fields");
+            // if (empty($id) || empty($name) || empty($date_register)) {
+			// 	throw new Exception("Fill in all fields");
 
-				return false;
-			}
+			// 	return false;
+			// }
 
 			$conn = new Database();
 
-            $result = $conn->executeQuery('UPDATE product SET `name` = :name, date_register = :date_register WHERE id = :id', array(
+            $result = $conn->executeQuery('UPDATE product SET `name` = :name WHERE id = :id', array(
                 ':name' => $name,
-                ':date_register' => $date_register,
                 ':id' => $id
             ));
 
