@@ -51,15 +51,9 @@ if(isset($data['message'])){
 
                                                             if (isset($data['provider']) > 0) {
                                                                 foreach ($data['provider'] as $value) {
-                                                                    // if ($value['active']) {
                                                                         echo    "<option value='".$value['id']."'>
                                                                                     ".$value['name']."
                                                                                 </option>";
-                                                                    // }else{
-                                                                    //     echo    "<option value='".$value['id']."' disabled>
-                                                                    //                 ".$value['name']."
-                                                                    //             </option>";
-                                                                    // }
                                                                 }
                                                             }else{
                                                                 echo    "<option value='' disabled>
@@ -136,7 +130,6 @@ if(isset($data['message'])){
                         <div class="form-group">
                             <div class="col-lg-12">
                                 <label class="control-label">Produto: </label>
-                                <!-- <input type="text" id="variavelAdicional" name="variavelAdicional" class="form-control"> -->
                                 <select class="form-control" id="variavelAdicional" name="variavelAdicional" required >
                                     <?php
 
@@ -186,13 +179,8 @@ if(isset($data['message'])){
 
 <script type="text/javascript">
     $(document).ready(function () {
-        console.log("teste");
-        // $('#actions').selectpicker({
-        //     noneSelectedText : 'Selecione',
-        // });
         $("#adicionarVariavel").click(function() {
             var novaVariavel = $('#modalAddProduct').find("[name='variavelAdicional']").val();
-            console.log(novaVariavel);
             if (novaVariavel.length > 0) {
                 variavelActiona();
             }
@@ -204,11 +192,7 @@ if(isset($data['message'])){
             var option = select.children[select.selectedIndex];
             var texto = option.textContent;
 
-            console.log(texto);
-
             var valor = $("#price").val();
-
-            console.log(valor);
 
             if (novaVariavel.length > 0) {
 
@@ -217,8 +201,6 @@ if(isset($data['message'])){
                 $("#price").val("");
 
                 $("#actions").append('<option selected value="'+novaVariavel+'-'+valor+'">'+texto+'- R$'+valor+'</option>');
-
-                // $("#actions").selectpicker("refresh");
 
                 $("#actions").refresh("true");
 

@@ -22,10 +22,6 @@ class Provider
 
             return $result->fetchAll(PDO::FETCH_ASSOC);
 
-			// if (!$result) {
-			// 	throw new Exception("Não foi encontrado nenhum registro no banco");		
-			// }
-
 		} catch (Exception $e) {
 			$e->getMessage();
 		}
@@ -50,10 +46,6 @@ class Provider
 
             return $result->fetchAll(PDO::FETCH_ASSOC);
 
-            // if (!$result) {
-			// 	throw new Exception("No record found");	
-			// }
-
 		} catch (Exception $e) {
 			$e->getMessage();
 		}
@@ -69,14 +61,6 @@ class Provider
     public static function store($name)
     {
         try {
-            // $name = $dados['name'];
-			// $date_register = $dados['date_register'];
-
-            // if (empty($name) || empty($date_register)) {
-			// 	throw new Exception("Fill in all fields");
-
-			// 	return false;
-			// }
 
 			$conn = new Database();
 
@@ -85,14 +69,6 @@ class Provider
             ));
 
             return $result;
-
-            // if ($result == 0) {
-			// 	throw new Exception("Failed to insert");
-
-			// 	return false;
-			// }
-
-			// return true;
 
 		} catch (Exception $e) {
 			$e->getMessage();
@@ -110,14 +86,6 @@ class Provider
     public static function update($name, $id)
     {
         try {
-            // $name = $dados['name'];
-			// $date_register = $dados['date_register'];
-
-            // if (empty($id) || empty($name) || empty($date_register)) {
-			// 	throw new Exception("Fill in all fields");
-
-			// 	return false;
-			// }
 
 			$conn = new Database();
 
@@ -127,14 +95,6 @@ class Provider
             ));
 
             return $result;
-
-            // if ($result == 0) {
-			// 	throw new Exception("Failed to update");
-
-			// 	return false;
-			// }
-
-			// return true;
 
 		} catch (Exception $e) {
 			$e->getMessage();
@@ -165,12 +125,6 @@ class Provider
             ));
 
             return $result;
-
-            // if (!$result) {
-			// 	throw new Exception("No record found");	
-			// }
-
-            return true;
 
 		} catch (Exception $e) {
 			$e->getMessage();

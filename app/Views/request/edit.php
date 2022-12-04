@@ -18,10 +18,6 @@ foreach ($data['provider'] as $value) {
     $name = $value['name'];
 }
 
-// foreach ($data['providerProduct'] as $value) {
-//     $id = $value['id'];
-// }
-
 ?>
 
 <main class="main">
@@ -131,7 +127,6 @@ foreach ($data['provider'] as $value) {
                         <div class="form-group">
                             <div class="col-lg-12">
                                 <label class="control-label">Produto: </label>
-                                <!-- <input type="text" id="variavelAdicional" name="variavelAdicional" class="form-control"> -->
                                 <select class="form-control" id="variavelAdicional" name="variavelAdicional" required >
                                     <?php
 
@@ -181,13 +176,8 @@ foreach ($data['provider'] as $value) {
 
 <script type="text/javascript">
     $(document).ready(function () {
-        console.log("teste");
-        // $('#actions').selectpicker({
-        //     noneSelectedText : 'Selecione',
-        // });
         $("#adicionarVariavel").click(function() {
             var novaVariavel = $('#modalAddProduct').find("[name='variavelAdicional']").val();
-            console.log(novaVariavel);
             if (novaVariavel.length > 0) {
                 variavelActiona();
             }
@@ -199,11 +189,7 @@ foreach ($data['provider'] as $value) {
             var option = select.children[select.selectedIndex];
             var texto = option.textContent;
 
-            console.log(texto);
-
             var valor = $("#price").val();
-
-            console.log(valor);
 
             if (novaVariavel.length > 0) {
 
@@ -212,8 +198,6 @@ foreach ($data['provider'] as $value) {
                 $("#price").val("");
 
                 $("#actions").append('<option selected value="'+novaVariavel+'-'+valor+'">'+texto+'- R$'+valor+'</option>');
-
-                // $("#actions").selectpicker("refresh");
 
                 $("#actions").refresh("true");
 

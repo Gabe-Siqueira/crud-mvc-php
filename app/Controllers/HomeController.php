@@ -24,31 +24,11 @@ class HomeController extends Controller
             }
         }
 
-        // echo "<pre>";
-        // var_dump($arrayProvider);
-        // echo "<pre>";
-        // exit;
-
-        // $providerProductModel = $this->model('ProviderProduct');
         $providerProduct = $providerProductModel::index();
-
-        // echo "<pre>";
-        // var_dump($providerProduct);
-        // echo "<pre>";
-        // exit;
 
         foreach ($arrayProvider as $value) {
             foreach ($providerProduct as $key) {
                 if ($value['id'] == $key['id_provider']) {
-                    // $arrayProviderProduct[$value['id']] = [
-                    //     "id_provider" => $value['id'],
-                    //     "provider_name" => $value['name'],
-                    //     "product" => [
-                    //         "id_product" => $key['id_product'],
-                    //         "value" => $key['value'],
-                    //         "date_register" => $key['date_register'],
-                    //     ]
-                    // ];
 
                     $arrayProviderProduct[$value['id']]['id_provider'] = $value['id'];
                     $arrayProviderProduct[$value['id']]['provider_name'] = $value['name'];
@@ -59,14 +39,7 @@ class HomeController extends Controller
                     $arrayProviderProduct[$value['id']]['product'][$key['id']]['date_register'] = $key['date_register'];
                 }
             }
-        }
-
-        
-        // echo "<pre>";
-        // var_dump($arrayProviderProduct);
-        // echo "<pre>";
-        // exit;
-        
+        }        
 
         $this->view('home/index', ['providerProduct' => $arrayProviderProduct]);
     }
