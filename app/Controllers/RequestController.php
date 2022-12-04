@@ -36,10 +36,8 @@ class RequestController extends Controller
     {
         $providerModel = $this->model('Provider');
         $productModel = $this->model('Product');
-        $ProviderProductModel = $this->model('ProviderProduct');
         $provider = $providerModel::index();
         $product = $productModel::index();
-        $ProviderProduct = $ProviderProductModel::index();
 
         // var_dump($ProviderProduct);
 
@@ -79,7 +77,7 @@ class RequestController extends Controller
         // var_dump($provider);
         // exit;
 
-        $this->view('request/create', ['provider' => $provider, 'product' => $product, 'ProviderProduct' => $ProviderProduct]);
+        $this->view('request/create', ['provider' => $provider, 'product' => $product]);
     }
 
     public function store()
@@ -121,11 +119,10 @@ class RequestController extends Controller
             // $providerProductModel = $this->model('ProviderProduct');
             $provider = $providerModel::index();
             $product = $productModel::index();
-            $ProviderProduct = $providerProductModel::index();
             
-            $this->view('request/create', ['provider' => $provider, 'product' => $product, 'ProviderProduct' => $ProviderProduct, 'message' => 'success']);
+            $this->view('request/create', ['provider' => $provider, 'product' => $product, 'message' => 'success']);
         } catch (\Exception $e) {
-            $this->view('request/create', ['provider' => $provider, 'product' => $product, 'ProviderProduct' => $ProviderProduct, 'message' => 'error']);
+            $this->view('request/create', ['provider' => $provider, 'product' => $product, 'message' => 'error']);
         }
         
     }
