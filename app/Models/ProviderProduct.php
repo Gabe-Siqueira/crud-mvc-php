@@ -18,7 +18,15 @@ class ProviderProduct
         try {
             $conn = new Database();
 
-            $result = $conn->executeQuery('SELECT * FROM provider_product');
+            // $result = $conn->executeQuery('SELECT * FROM provider_product;');
+
+            $result = $conn->executeQuery("SELECT 
+                                                provider_product.id as id, 
+                                                provider.id as id_provider,
+                                                provider.name as provider
+                                            FROM 
+                                                provider_product 
+                                            INNER JOIN provider ON provider_product.id_provider = provider.id ORDER BY id;");
 
             return $result->fetchAll(PDO::FETCH_ASSOC);
 
@@ -34,18 +42,76 @@ class ProviderProduct
     /**
     * Display the specified resource.
     *
-    * @param int    $id 
+    * @param int    $id_product
+    * @param int    $id_provider
     *
     * @return array
     */
-    public static function show($id)
+    public static function indexWithProvider()
     {
         try {
 
 			$conn = new Database();
 
-            $result = $conn->executeQuery('SELECT * FROM provider_product WHERE id = :id', array(
-                ':id' => $id
+            $result = $conn->executeQuery("SELECT id_provider FROM provider_product GROUP BY id_provider;");
+
+            return $result->fetchAll(PDO::FETCH_ASSOC);
+
+            // if (!$result) {
+			// 	throw new Exception("No record found");	
+			// }
+
+		} catch (Exception $e) {
+			$e->getMessage();
+		}
+    }
+
+    /**
+    * Display the specified resource.
+    *
+    * @param int    $id_product
+    * @param int    $id_provider
+    *
+    * @return array
+    */
+    public static function show($id_provider)
+    {
+        try {
+
+			$conn = new Database();
+
+            // $and = false;
+
+            // if (isset($id_product) > 0) {
+            //     $whereProduct = " WHERE id_product = $id_product ";
+            //     $and = true;
+            // }
+
+            // if ($and) {
+            //     $whereOrAnd = " AND ";
+            // }else{
+            //     $whereOrAnd = " WHERE ";
+            // }
+
+            // if (isset($id_provider) > 0) {
+            //     $whereProvider = " $whereOrAnd id_provider = $id_product ";
+            // }
+
+            // $result = $conn->executeQuery("SELECT * FROM provider_product WHERE id_provider = :id_provider;", array(
+            //     ':id_provider' => $id_provider
+            // ));
+
+            $result = $conn->executeQuery("SELECT 
+                                                provider_product.id as id, 
+                                                provider_product.id_provider as id_provider,
+                                                provider_product.id_product as id_product,
+                                                product.name as name,
+                                                provider_product.value as value
+                                            FROM 
+                                                provider_product
+                                            INNER JOIN product ON provider_product.id_product = product.id
+                                            WHERE provider_product.id_provider = :id_provider;", array(
+                ':id_provider' => $id_provider
             ));
 
             return $result->fetchAll(PDO::FETCH_ASSOC);
@@ -62,34 +128,35 @@ class ProviderProduct
     /**
     * Store a newly created resource in storage.
     *
-    * @param array    $dados 
+    * @param int        $id_product
+    * @param int        $id_provider
+    * @param decimal    $value
     *
     * @return array
     */
-    public static function store($dados)
+    public static function store($id_product, $id_provider, $value)
     {
         try {
-            $id_provider = $dados['id_provider'];
-            $id_product = $dados['id_product'];
-            $value = $dados['value'];
-			$date_register = $dados['date_register'];
+            // $id_provider = $dados['id_provider'];
+            // $id_product = $dados['id_product'];
+            // $value = $dados['value'];
+			// $date_register = $dados['date_register'];
 
-            if (empty($id_provider) || empty($id_product) || empty($value) || empty($date_register)) {
-				throw new Exception("Fill in all fields");
+            // if (empty($id_provider) || empty($id_product) || empty($value) || empty($date_register)) {
+			// 	throw new Exception("Fill in all fields");
 
-				return false;
-			}
+			// 	return false;
+			// }
 
 			$conn = new Database();
 
-            $result = $conn->executeQuery('INSERT INTO provider_product (id_provider, id_product, `value`, date_register) VALUES (:id_provider, :id_product, :value, :date_register)', array(
+            $result = $conn->executeQuery('INSERT INTO provider_product (id_provider, id_product, `value`, date_register) VALUES (:id_provider, :id_product, :value, NOW())', array(
                 ':id_provider' => $id_provider,
                 ':id_product' => $id_product,
                 ':value' => $value,
-                ':date_register' => $date_register,
             ));
 
-            return $result;
+            return true;
 
             // if ($result == 0) {
 			// 	throw new Exception("Failed to insert");
@@ -104,61 +171,62 @@ class ProviderProduct
 		}
     }
 
-    /**
-    * Update the specified resource in storage.
-    *
-    * @param array      $dados
-    * @param int        $id 
-    *
-    * @return array
-    */
-    public static function update($dados, $id)
-    {
-        try {
-            $value = $dados['value'];
-			$date_register = $dados['date_register'];
+    // /**
+    // * Update the specified resource in storage.
+    // *
+    // * @param array      $dados
+    // * @param int        $id 
+    // *
+    // * @return array
+    // */
+    // public static function update($dados, $id)
+    // {
+    //     try {
+    //         $value = $dados['value'];
+	// 		$date_register = $dados['date_register'];
 
-            if (empty($id) || empty($value) || empty($date_register)) {
-				throw new Exception("Fill in all fields");
+    //         if (empty($id) || empty($value) || empty($date_register)) {
+	// 			throw new Exception("Fill in all fields");
 
-				return false;
-			}
+	// 			return false;
+	// 		}
 
-			$conn = new Database();
+	// 		$conn = new Database();
 
-            $result = $conn->executeQuery('UPDATE provider_product SET `value` = :value, date_register = :date_register WHERE id = :id', array(
-                ':value' => $value,
-                ':date_register' => $date_register,
-                ':id' => $id
-            ));
+    //         $result = $conn->executeQuery('UPDATE provider_product SET `value` = :value, date_register = :date_register WHERE id = :id', array(
+    //             ':value' => $value,
+    //             ':date_register' => $date_register,
+    //             ':id' => $id
+    //         ));
 
-            return $result;
+    //         return $result;
 
-            // if ($result == 0) {
-			// 	throw new Exception("Failed to update");
+    //         // if ($result == 0) {
+	// 		// 	throw new Exception("Failed to update");
 
-			// 	return false;
-			// }
+	// 		// 	return false;
+	// 		// }
 
-			// return true;
+	// 		// return true;
 
-		} catch (Exception $e) {
-			$e->getMessage();
-		}
-    }
+	// 	} catch (Exception $e) {
+	// 		$e->getMessage();
+	// 	}
+    // }
 
     /**
     * Remove the specified resource from storage.
     *
-    * @param int    $id 
+    * @param int        $id_product
+    * @param int        $id_provider
     *
     * @return array
     */
-    public static function delete($id)
+    public static function delete($id_provider)
     {
         try {
 
-            if (empty($id)) {
+            if (empty($id_provider)) {
 				throw new Exception("Fill in all fields");
 
 				return false;
@@ -166,8 +234,18 @@ class ProviderProduct
 
 			$conn = new Database();
 
-            $result = $conn->executeQuery('DELETE FROM provider_product WHERE id = :id', array(
-                ':id' => $id
+            // if (isset($id_provider) > 0) {
+            //     $whereProvider = "id_provider = $id_product ";
+            //     $and = true;
+            // }
+
+            // if (isset($id_product) > 0) {
+            //     $whereProduct = " WHERE id_product = $id_product ";
+                
+            // }            
+
+            $result = $conn->executeQuery('DELETE FROM provider_product WHERE id_provider = :id_provider', array(
+                ':id_provider' => $id_provider
             ));
 
             return $result;
