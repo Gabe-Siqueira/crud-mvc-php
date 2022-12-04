@@ -22,11 +22,14 @@ class ProviderProduct
 
             $result = $conn->executeQuery("SELECT 
                                                 provider_product.id as id, 
-                                                provider.id as id_provider,
-                                                provider.name as provider
+                                                provider_product.id_provider as id_provider,
+                                                provider_product.id_product as id_product,
+                                                product.name as name,
+                                                provider_product.value as value,
+                                                provider_product.date_register as date_register
                                             FROM 
                                                 provider_product 
-                                            INNER JOIN provider ON provider_product.id_provider = provider.id ORDER BY id;");
+                                            INNER JOIN product ON provider_product.id_product = product.id ORDER BY id;");
 
             return $result->fetchAll(PDO::FETCH_ASSOC);
 
