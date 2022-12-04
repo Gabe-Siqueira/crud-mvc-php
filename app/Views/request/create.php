@@ -1,0 +1,228 @@
+<?php
+
+$message = '';
+if(isset($data['message'])){
+    switch ($data['message']) {
+        case 'success':
+        $message = '<div class="alert alert-success">Ação executada com sucesso!</div>';
+        break;
+
+        case 'error':
+        $message = '<div class="alert alert-danger">Ação não executada!</div>';
+        break;
+    }
+}
+
+?>
+
+<main class="main">
+    <section class="jumbotron text-center" style="margin: 0px;">
+        <div class="container">
+            <h1 class="jumbotron-heading">Cadastrar Pedido</h1>
+            <p>
+                <a href="http://localhost:8080/request/index" class="btn btn-secondary my-2">Voltar</a>   
+            </p>
+        </div>
+    </section>
+
+    <div class="container mt-5 mb-5">
+        <div class="row">
+            <div class="col-12">
+                <?=$message?>
+                <!-- INCIO CARD CRIAR REQUEST -->
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <form action="http://localhost:8080/request/store" method="post">
+                                    <div class="provider">
+                                        <div class="row ml-1">
+                                            <h4 class="bold">
+                                                Dados
+                                            </h4>
+                                        </div>
+                                        <hr style="margin-top: -5px;">
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xs-12">
+                                                <div class="form-provider">
+                                                    <b>Fornecedor:</b>
+                                                    <select class="form-control" name="provider" required >
+                                                        <?php
+
+                                                            if (isset($data['provider']) > 0) {
+                                                                foreach ($data['provider'] as $value) {
+                                                                    // if ($value['active']) {
+                                                                        echo    "<option value='".$value['id']."'>
+                                                                                    ".$value['name']."
+                                                                                </option>";
+                                                                    // }else{
+                                                                    //     echo    "<option value='".$value['id']."' disabled>
+                                                                    //                 ".$value['name']."
+                                                                    //             </option>";
+                                                                    // }
+                                                                }
+                                                            }else{
+                                                                echo    "<option value='' disabled>
+                                                                            Nenhum dado encontrado.
+                                                                        </option>";
+                                                            }
+                                                            
+                                                        ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="product">
+                                        <div class="row ml-1">
+                                            <h4 class="bold">
+                                                Produto
+                                            </h4>                                    
+                                        </div>
+                                        <hr style="margin-top: -5px;">
+                                        <div class="row">
+                                            <div class="col-sm-8 col-md-8 col-lg-8 col-xs-12">
+                                                <div class="form-group">
+                                                    <select class="form-control" multiple="multiple" id="actions" name="actions[]">
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4 col-md-2 col-lg-2 col-xs-12">
+                                                <div class="form-group">
+                                                    <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#modalAddProduct">
+                                                        <i class="fa fa-plus" aria-hidden="true"></i> Adicionar
+                                                    </button>
+                                                </div>
+                                            </div>   
+                                        </div>
+                                    </div>
+
+                                    <div class="row ml-1">
+                                        <div class="form-group">
+                                            <div class="btn-group" role="group">
+                                                <button class="btn btn-success btn-sm" type="submit">
+                                                    <i class="fa fa-check-circle-o" aria-hidden="true"></i> Salvar
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- FIM CARD CRIAR REQUEST -->
+            </div>
+        </div>
+    </div>
+
+</main>
+
+<!-- INICIO MODAL PRODUCT -->
+<div class="modal fade" id="modalAddProduct" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title bold" id="exampleModalLongTitle">Criar action</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-group">
+                            <div class="col-lg-12">
+                                <label class="control-label">Produto: </label>
+                                <!-- <input type="text" id="variavelAdicional" name="variavelAdicional" class="form-control"> -->
+                                <select class="form-control" id="variavelAdicional" name="variavelAdicional" required >
+                                    <?php
+
+                                        if (isset($data['product']) > 0) {
+                                            foreach ($data['product'] as $value) {
+                                                echo    "<option value='".$value['id']."'>
+                                                            ".$value['name']."
+                                                        </option>";
+                                            }
+                                        }else{
+                                            echo    "<option value='' disabled>
+                                                        Nenhum dado encontrado.
+                                                    </option>";
+                                        }
+                                        
+                                    ?>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-group">
+                            <div class="col-lg-12">
+                                <label class="control-label">Valor: </label>
+                                <input type="number" step="0.01" id="price" name="price" class="form-control" min="0" required /> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">
+                    <i class="fa fa-times" aria-hidden="true"></i> Fechar
+                </button>
+                <button type="button" class="btn btn-primary btn-sm" id="adicionarVariavel">
+                    <i class="fa fa-check" aria-hidden="true"></i> Adicionar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- FIM MODAL PRODUCT -->
+
+<script src="https://code.jquery.com/jquery-1.9.1.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        console.log("teste");
+        // $('#actions').selectpicker({
+        //     noneSelectedText : 'Selecione',
+        // });
+        $("#adicionarVariavel").click(function() {
+            var novaVariavel = $('#modalAddProduct').find("[name='variavelAdicional']").val();
+            console.log(novaVariavel);
+            if (novaVariavel.length > 0) {
+                variavelActiona();
+            }
+        });
+        function variavelActiona() {
+            var novaVariavel = $("#variavelAdicional").val();
+
+            var select = document.querySelector('#variavelAdicional');
+            var option = select.children[select.selectedIndex];
+            var texto = option.textContent;
+
+            console.log(texto);
+
+            var valor = $("#price").val();
+
+            console.log(valor);
+
+            if (novaVariavel.length > 0) {
+
+                $("#variavelAdicional").val("").focus();
+
+                $("#price").val("");
+
+                $("#actions").append('<option selected value="'+novaVariavel+'-'+valor+'">'+texto+'- R$'+valor+'</option>');
+
+                // $("#actions").selectpicker("refresh");
+
+                $("#actions").refresh("true");
+
+            }
+        }
+    });
+</script>
