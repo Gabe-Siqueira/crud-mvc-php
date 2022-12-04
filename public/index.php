@@ -18,6 +18,7 @@
               <a class="nav-link text-white" href="http://localhost:8080/home/index">Home</a>
               <a class="nav-link text-white" href="http://localhost:8080/provider/index">Fornecedor</a>
               <a class="nav-link text-white" href="http://localhost:8080/product/index">Produto</a>
+              <a class="nav-link text-white" href="http://localhost:8080/request/index">Pedido</a>
             </nav>
         </div>
       </div>
